@@ -148,7 +148,18 @@ void cpu_run(struct cpu *cpu)
     case CMP:
       alu(cpu, ALU_CMP, cpu->registers[operand1], cpu->registers[operand2]);
       break;
-
+    case JEQ:
+      if (cpu->FL == 0b00000001)
+      {
+        cpu->PC = cpu->registers[operand1] - operands - 1;
+      }
+      break;
+    case JNE:
+      if ((cpu->FL & 0b00000001) == 0)
+      {
+        cpu->PC = cpu->registers[operand1] - operands - 1;
+      }
+      break;
     default:
       // printf("Cannot complete this command\n");
       // exit(1);
