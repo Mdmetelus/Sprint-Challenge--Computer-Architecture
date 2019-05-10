@@ -142,11 +142,12 @@ void cpu_run(struct cpu *cpu)
       running = 0;
       // cpu->PC += 1;
       break;
+    case JMP:
+      cpu->PC = cpu->registers[operand1] - operands - 1;
+      break;
     case CMP:
       alu(cpu, ALU_CMP, cpu->registers[operand1], cpu->registers[operand2]);
       break;
-
-
 
     default:
       // printf("Cannot complete this command\n");
