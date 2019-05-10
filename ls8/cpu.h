@@ -19,8 +19,12 @@ struct cpu {
 
   // TODO
   unsigned char PC;
+
+  unsigned char FL;
   // registers (array)
   unsigned char registers[8];
+  
+  
   // ram (array)
   unsigned char ram[256];
   unsigned char mystack;
