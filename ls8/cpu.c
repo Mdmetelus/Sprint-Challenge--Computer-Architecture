@@ -77,7 +77,20 @@ void alu(struct cpu *cpu, enum alu_op op, unsigned char regA, unsigned char regB
         cpu->registers[regA] *= cpu->registers[regB];
         break;
 
-     
+      case ALU_CMP:
+        if (regA == regB)
+        {
+          cpu->FL = 0b00000001;
+        }
+        else if (regA > regB)
+        {
+          cpu->FL = 0b00000010;
+        }
+        else if (regA < regB)
+        {
+          cpu->FL = 0b00000100;
+        }
+        break;
       }
     
 }
@@ -129,7 +142,9 @@ void cpu_run(struct cpu *cpu)
       running = 0;
       // cpu->PC += 1;
       break;
-    
+    case CMP:
+      alu(cpu, ALU_CMP, cpu->registers[operand1], cpu->registers[operand2]);
+      break;
 
 
 
