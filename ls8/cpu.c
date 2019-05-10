@@ -62,10 +62,24 @@ void alu(struct cpu *cpu, enum alu_op op, unsigned char regA, unsigned char regB
 {
   switch (op)
   {
-  case ALU_MUL:
-    cpu->registers[regA] *= cpu->registers[regB];
-    break;
-    }
+      case ALU_ADD:
+        cpu->registers[regA] += cpu->registers[regB];
+        break;
+      case ALU_SUB:
+
+        cpu->registers[regA] -= cpu->registers[regB];
+        break;
+      case ALU_DIV:
+        
+        cpu->registers[regA] /= cpu->registers[regB];
+        break;
+      case ALU_MUL:
+        cpu->registers[regA] *= cpu->registers[regB];
+        break;
+
+     
+      }
+    
 }
 
 // /**
@@ -103,10 +117,6 @@ void cpu_run(struct cpu *cpu)
       // cpu->registers[operand1] *= operand2;
       // cpu->PC += 3;
       break;
-    // case ADD:
-    //   cpu->registers[operand1] += operand2;
-    //   cpu->PC += 3;
-    //   break;
     case PUSH:
       cpu_push(cpu, cpu->registers[operand1]);
       // cpu->PC += 2;
@@ -119,6 +129,10 @@ void cpu_run(struct cpu *cpu)
       running = 0;
       // cpu->PC += 1;
       break;
+    
+
+
+
     default:
       // printf("Cannot complete this command\n");
       // exit(1);
@@ -141,6 +155,7 @@ void cpu_init(struct cpu *cpu)
 //   }
 //   cpu->registers[7] = 0xF4;
     cpu->PC = 0;
+    cpu->FL = 0;
     memset(cpu->registers, 0, sizeof cpu->registers);
 
     // RAM is set to 0
